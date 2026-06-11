@@ -9,31 +9,49 @@ const galleryItems = [
     id: 1,
     title: 'Digital Dreams',
     color: 'from-indigo-600 to-purple-600',
+    description: 'Immersive 3D visualization',
+    emoji: '🌌',
+    bgGradient: 'via-indigo-500',
   },
   {
     id: 2,
     title: 'Cyber Realm',
     color: 'from-purple-600 to-pink-600',
+    description: 'Interactive motion design',
+    emoji: '🌐',
+    bgGradient: 'via-purple-500',
   },
   {
     id: 3,
     title: 'Tech Horizon',
     color: 'from-cyan-600 to-blue-600',
+    description: 'Advanced animations',
+    emoji: '🚀',
+    bgGradient: 'via-cyan-500',
   },
   {
     id: 4,
     title: 'Neon Nexus',
     color: 'from-pink-600 to-orange-600',
+    description: 'Futuristic UI elements',
+    emoji: '⚡',
+    bgGradient: 'via-pink-500',
   },
   {
     id: 5,
     title: 'Infinite Loop',
     color: 'from-blue-600 to-cyan-600',
+    description: 'Seamless experiences',
+    emoji: '♾️',
+    bgGradient: 'via-blue-500',
   },
   {
     id: 6,
     title: 'Creative Flow',
     color: 'from-purple-600 to-indigo-600',
+    description: 'Story-driven design',
+    emoji: '🎨',
+    bgGradient: 'via-purple-500',
   },
 ];
 
@@ -110,7 +128,7 @@ export const GallerySection: React.FC = () => {
               }}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="group relative cursor-pointer h-80"
+              className="group relative cursor-pointer h-96"
             >
               {/* Background glow */}
               <div
@@ -118,35 +136,59 @@ export const GallerySection: React.FC = () => {
               />
 
               {/* Card container */}
-              <div className="relative h-full overflow-hidden rounded-2xl border border-gray-700/50 group-hover:border-gray-500/50 transition-all duration-300">
-                {/* Background gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-10 group-hover:opacity-20 transition-opacity duration-300`} />
+              <div className="relative h-full overflow-hidden rounded-2xl border border-gray-700/50 group-hover:border-gray-500/50 transition-all duration-300 shadow-lg">
+                {/* Animated background gradient */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br from-gray-900 to-black opacity-90 group-hover:opacity-75 transition-opacity duration-300`}
+                />
+
+                {/* Animated bars background */}
+                <div className="absolute inset-0">
+                  {[...Array(6)].map((_, i) => (
+                    <div
+                      key={i}
+                      className={`absolute w-full h-16 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                      style={{
+                        top: `${i * 60}px`,
+                        animation: hoveredId === item.id ? `pulse ${2 + i * 0.2}s ease-in-out infinite` : 'none',
+                      }}
+                    />
+                  ))}
+                </div>
 
                 {/* Content */}
                 <div className="relative h-full flex flex-col items-center justify-center p-6">
+                  {/* Large emoji/icon */}
+                  <div className="text-7xl mb-4 transform group-hover:scale-125 transition-transform duration-300">
+                    {item.emoji}
+                  </div>
+
                   {/* Animated circles */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className={`w-32 h-32 bg-gradient-to-r ${item.color} rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-all duration-300 group-hover:scale-150`} />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className={`w-40 h-40 bg-gradient-to-r ${item.color} rounded-full blur-3xl opacity-10 group-hover:opacity-25 transition-all duration-300 group-hover:scale-150`} />
                   </div>
 
                   {/* Text content */}
                   <div className="relative z-10 text-center">
-                    <h3 className={`text-3xl font-bold mb-4 bg-gradient-to-r ${item.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
+                    <h3 className={`text-3xl font-bold mb-2 bg-gradient-to-r ${item.color} bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300`}>
                       {item.title}
                     </h3>
                     <p className="text-gray-400 mb-6 group-hover:text-gray-300 transition-colors">
-                      Explore this creative journey
+                      {item.description}
                     </p>
 
                     {/* Button */}
-                    <button className={`px-6 py-2 bg-gradient-to-r ${item.color} text-white rounded-lg text-sm font-semibold opacity-0 group-hover:opacity-100 transform group-hover:scale-100 scale-95 transition-all duration-300`}>
-                      View Details
+                    <button className={`px-6 py-2 bg-gradient-to-r ${item.color} text-white rounded-lg text-sm font-semibold opacity-0 group-hover:opacity-100 transform group-hover:scale-100 scale-95 transition-all duration-300 hover:shadow-lg`}>
+                      Explore
                     </button>
                   </div>
 
                   {/* Decorative elements */}
-                  <div className="absolute top-4 right-4 w-8 h-8 border-2 border-gray-500/50 rounded-lg group-hover:scale-110 transition-transform duration-300" />
-                  <div className="absolute bottom-4 left-4 w-8 h-8 border-2 border-gray-500/50 rounded-full group-hover:scale-110 transition-transform duration-300" />
+                  <div className="absolute top-4 right-4 w-8 h-8 border-2 border-gray-500/50 rounded-lg group-hover:scale-110 group-hover:border-gray-300/80 transition-all duration-300" />
+                  <div className="absolute bottom-4 left-4 w-8 h-8 border-2 border-gray-500/50 rounded-full group-hover:scale-110 group-hover:border-gray-300/80 transition-all duration-300" />
+
+                  {/* Corner glow */}
+                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${item.color} rounded-bl-full opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-2xl`} />
                 </div>
               </div>
 
@@ -158,6 +200,20 @@ export const GallerySection: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* Global animation styles */}
+      <style>{`
+        @keyframes pulse {
+          0%, 100% {
+            transform: scaleX(1);
+            opacity: 0;
+          }
+          50% {
+            transform: scaleX(1.1);
+            opacity: 0.15;
+          }
+        }
+      `}</style>
     </section>
   );
 };
